@@ -2,17 +2,17 @@ console.log("starting notes.js file.....")
 
 const fs = require("fs")
 
-//fetches the lists of notes we have
+//fetches the lists of notes we have and returns [] or array of notes
 const fetchNotes = () =>{
     try{
         const noteString = fs.readFileSync("notes-data.json");
-        return JSON.parse(noteString)
+        return JSON.parse(noteString) // return array of json notes
     }catch(e){
-        return [];
+        return []; //return empty array if exception occurs
     }
 }
 
-// save a note to the file to persist data
+// save a note by writing to the file to persist data
 const saveNotes = (notes) =>{
     fs.writeFileSync("notes-data.json", JSON.stringify(notes,null,4));
 }
@@ -34,6 +34,16 @@ const addNote = (title, body) =>{
     }
 }
 
+// functionality for deleting a note from the file
+const removeNote = (title) =>{
+    let noteList = fetchNotes(); // get list of notes in an array
+    let filteredNote = noteList.filter(note => note.title !== title)
+    saveNotes(filteredNote) // save the new note
+
+    return filteredNote.length !== noteList.length
+}
+
 module.exports = {
-    addNote
+    addNote,
+    removeNote
 } 

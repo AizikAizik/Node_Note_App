@@ -22,4 +22,11 @@ if(command === "Add" || command === "add"){
     }else{
         console.log("Note Title already taken");
     }
+}else if(command === "Remove" || command === "remove"){
+    let isRemoved = notes.removeNote(argv.title);
+    let msg;
+
+    isRemoved ? msg = `${argv.title} deleted !` : msg = `${argv.title} not found`
+
+    console.log(msg);
 }
