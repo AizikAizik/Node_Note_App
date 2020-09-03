@@ -17,6 +17,12 @@ const saveNotes = (notes) =>{
     fs.writeFileSync("notes-data.json", JSON.stringify(notes,null,4));
 }
 
+const logNote = (note) =>{
+    console.log("---");
+    console.log(`Title : ${note.title}`);
+    console.log(`Body : ${note.body}`);
+}
+
 // functionality for Adding a note
 const addNote = (title, body) =>{
     let notes = fetchNotes();
@@ -43,7 +49,16 @@ const removeNote = (title) =>{
     return filteredNote.length !== noteList.length
 }
 
+const readNote = (title) =>{
+    let noteList = fetchNotes(); // get all lists of note
+    //fiter out the single note
+    let findNote = noteList.filter(note => note.title === title);
+    return findNote[0]; // return the array object of the note
+}
+
 module.exports = {
     addNote,
-    removeNote
+    removeNote,
+    readNote,
+    logNote
 } 
