@@ -1,12 +1,42 @@
+// import built in modules
 const fs = require("fs");
+
+//import installed modules from NPM registry
 const _ = require("lodash");
 const yargs = require("yargs");
 
+//import user defined module
 const notes = require("./notes");
 
-const argv = yargs.argv;
+
+const titleOptions = {
+    describe : 'Title of note',
+    demand : true,
+    alias : 't'
+}
+
+const bodyOptions = {
+    describe : 'Body of note',
+    demand : true,
+    alias : 'b'
+}
+
+
+const argv = yargs.command("add", true, {
+    title : titleOptions,
+    body : bodyOptions
+})
+.command("list", true)
+.command(["read","Read"], true, {
+    title : titleOptions
+})
+.command("remove", true, {title : titleOptions})
+.help().argv;
+
+
 let command = argv._[0];
 console.log("command :", command);
+
 
 // Adding a note
 if(command === "Add" || command === "add"){
