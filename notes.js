@@ -15,6 +15,11 @@ const saveNotes = (notes) =>{
     fs.writeFileSync("notes-data.json", JSON.stringify(notes,null,4));
 }
 
+// clear all saved notes
+const deleteAllNotes = () =>{
+    fs.writeFileSync("notes-data.json","")
+}
+
 // logs the output of a note to the terminal
 const logNote = (note) =>{
     console.log("---");
@@ -66,5 +71,6 @@ module.exports = {
     removeNote,
     readNote,
     listAllNotes,
-    logNote
+    logNote,
+    deleteAllNotes
 }

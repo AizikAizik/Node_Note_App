@@ -31,6 +31,7 @@ const argv = yargs.command("add", true, {
     title : titleOptions
 })
 .command("remove", true, {title : titleOptions})
+.command(["Clear", "clear"])
 .help().argv;
 
 
@@ -74,6 +75,10 @@ if(command === "Add" || command === "add"){
     }else{
         console.log("No notes saved in the file!!")
     }
-}else{
+}else if(command === "Clear" || command === "clear"){
+    notes.deleteAllNotes()
+    console.log(`all notes deleted in notes-data.json file!!`)
+}
+else{
     console.log(`${command} is an invalid command`)
 }
